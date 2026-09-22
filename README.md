@@ -1,10 +1,10 @@
 # Compute Macro Index (CMI) v0.1 — Technical Methodology & Data Contract
 
 ## Executive Overview
-The **Compute Macro Index (CMI)** measures the physical and financial solvency of hyperscale AI infrastructure. Unlike spot-market price indexes that track cloud API rental rates, CMI evaluates two distinct spreads: the raw physical generation margin ($V_{physical}$) and the fully leveraged, macro-adjusted cost of compute ($V_c$).
+The **Compute Macro Index (CMI)** measures the physical and financial viability of hyperscale AI infrastructure. Unlike spot-market price indexes that track cloud API rental rates, CMI evaluates two distinct spreads: the raw physical generation margin ($V_{physical}$) and the fully leveraged, macro-adjusted cost of compute ($V_c$).
 
-* **Physical Solvency ($V_{physical} > 0$):** Indicates spot market revenues successfully cover real-world energy, hardware depreciation, and cooling drag.
-* **Leveraged Insolvency ($V_c < 0$):** Indicates that despite physical profitability at the server level, the systemic burden of low utilization, corporate CapEx, and off-balance-sheet debt renders the broader infrastructure model insolvent.
+* **Physical Coverage ($V_{physical} > 0$):** Indicates spot market revenues successfully cover real-world energy, hardware depreciation, and cooling drag at the server level.
+* **Levered Shortfall ($V_c < 0$):** Indicates that despite physical profitability, the systemic burden of low utilization, corporate CapEx, and off-balance-sheet debt creates a negative levered spread. Current spot rates are under-earning their true replacement and capital costs.
 ---
 
 ## Monitored Targets & Hardware Register
@@ -71,7 +71,7 @@ Quantifies systemic debt leverage and capital friction per active compute unit b
 
 $$M_c = \left( \frac{D_{spv} + E_{capex}}{R_{organic}} \right) \cdot U_r$$
 
-### 4. Solvency Crosses ($V_{physical}$ & $V_c$)
+### 4. Coverage Spread ($V_{physical}$ & $V_c$)
 Evaluates spot market rental rates against both the base thermodynamic cost and the fully leveraged macro cost:
 
 **Unlevered Physical Spread (Hardware Margin):**
@@ -80,7 +80,10 @@ $$V_{physical} = P_{futures} - C_p$$
 **Compute-to-Fiat Cross (Macro Index):**
 $$V_c = P_{futures} - (C_p \cdot M_c)$$
 
-* **$V_{physical} > 0$ but $V_c < 0$ (DEBT TRAP):** Hardware generates positive unit economics, but systemic debt and capital friction subsidize the spot rate, signaling macro insolvency.
+**Index Status Definitions:**
+* **COVERED ($V_{physical} > 0$, $V_c > 0$):** Spot revenues safely clear both physical generation costs and the macro leverage overlay.
+* **PLANT COVERED, LEVERED SHORT ($V_{physical} > 0$, $V_c < 0$):** Hardware generates positive unit economics, but fails to cover the systemic capital-adjusted deficit.
+* **PHYSICAL SHORT ($V_{physical} < 0$, $V_c < 0$):** Spot revenues fail to cover even the base thermodynamic and depreciation costs.
 ---
 
 ## Worked Telemetry Sample (Timestamp 1789365863)
@@ -126,14 +129,13 @@ $$M_c = 32.45 \cdot 0.4917 = 15.96$$
 **Unlevered Physical Spread (Hardware Operations):**
 $$V_{physical} = P_{futures} - C_p$$
 $$V_{physical} = 3.0895 - 0.2967 = +2.7928$$
-* **STATUS: NOMINAL ( +$2.793 / hr )**
+* **STATUS: PLANT COVERED ( +$2.793 / hr )**
 
 **Leveraged Macro Spread ($V_c$ - The CMI Index):**
 $$V_c = P_{futures} - (C_p \cdot M_c)$$
 $$V_c = 3.0895 - (0.2967 \cdot 15.96)$$
 $$V_c = 3.0895 - 4.7353 = -1.6458$$
-* **STATUS: CRITICAL ( -$1.646 / hr )**
-
+* **STATUS: LEVERED SHORT ( -$1.646 / hr )**
 ---
 
 ## Methodological Disclosures & Version Notes
