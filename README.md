@@ -121,11 +121,16 @@ $$M_c = 32.45 \cdot 0.4917 = 15.96$$
 
 ### 3. Final Master Print
 
+**Unlevered Physical Spread (Hardware Operations):**
+$$V_{physical} = P_{futures} - C_p$$
+$$V_{physical} = 3.0895 - 0.2967 = +2.7928$$
+* **STATUS: NOMINAL ( +$2.793 / hr )**
+
+**Leveraged Macro Spread ($V_c$ - The CMI Index):**
+$$V_c = P_{futures} - (C_p \cdot M_c)$$
 $$V_c = 3.0895 - (0.2967 \cdot 15.96)$$
-
 $$V_c = 3.0895 - 4.7353 = -1.6458$$
-
-* **STATUS: CRITICAL ( -1.645 / hr )**
+* **STATUS: CRITICAL ( -$1.646 / hr )**
 
 ---
 
