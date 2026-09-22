@@ -1,10 +1,10 @@
 # Compute Macro Index (CMI) v0.1 — Technical Methodology & Data Contract
 
 ## Executive Overview
-The **Compute Macro Index (CMI)** measures the physical and financial solvency of hyperscale AI infrastructure. Unlike spot-market price indexes that track cloud API rental rates, CMI evaluates the net spread between real-time spot revenue and the fully leveraged, thermodynamic cost of compute generation.
+The **Compute Macro Index (CMI)** measures the physical and financial solvency of hyperscale AI infrastructure. Unlike spot-market price indexes that track cloud API rental rates, CMI evaluates two distinct spreads: the raw physical generation margin ($V_{physical}$) and the fully leveraged, macro-adjusted cost of compute ($V_c$).
 
-A negative Compute-to-Fiat Cross ($V_c < 0$) indicates that market rental prices fail to cover real-world energy, hardware depreciation, cooling drag, and debt service.
-
+* **Physical Solvency ($V_{physical} > 0$):** Indicates spot market revenues successfully cover real-world energy, hardware depreciation, and cooling drag.
+* **Leveraged Insolvency ($V_c < 0$):** Indicates that despite physical profitability at the server level, the systemic burden of low utilization, corporate CapEx, and off-balance-sheet debt renders the broader infrastructure model insolvent.
 ---
 
 ## Monitored Targets & Hardware Register
@@ -71,14 +71,16 @@ Quantifies systemic debt leverage and capital friction per active compute unit b
 
 $$M_c = \left( \frac{D_{spv} + E_{capex}}{R_{organic}} \right) \cdot U_r$$
 
-### 4. Compute-to-Fiat Cross ($V_c$)
-Evaluates spot market rental rates against the leverage-adjusted physical cost basis:
+### 4. Solvency Crosses ($V_{physical}$ & $V_c$)
+Evaluates spot market rental rates against both the base thermodynamic cost and the fully leveraged macro cost:
 
+**Unlevered Physical Spread (Hardware Margin):**
+$$V_{physical} = P_{futures} - C_p$$
+
+**Compute-to-Fiat Cross (Macro Index):**
 $$V_c = P_{futures} - (C_p \cdot M_c)$$
 
-* **$V_c > 0$ (NOMINAL):** Spot revenues safely cover physical generation costs and debt service.
-* **$V_c < 0$ (CRITICAL):** Market spot rates operate below leveraged physical costs, signaling debt-subsidized insolvency.
-
+* **$V_{physical} > 0$ but $V_c < 0$ (DEBT TRAP):** Hardware generates positive unit economics, but systemic debt and capital friction subsidize the spot rate, signaling macro insolvency.
 ---
 
 ## Worked Telemetry Sample (Timestamp 1789365863)
